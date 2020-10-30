@@ -24,8 +24,7 @@ void my_accessory_identify(homekit_value_t _value) {
 homekit_characteristic_t cha_current_temperature = HOMEKIT_CHARACTERISTIC_(CURRENT_TEMPERATURE, 0);
 
 // (optional) format: string; HAP section 9.62; max length 64
-homekit_characteristic_t cha_name = HOMEKIT_CHARACTERISTIC_(NAME, "Capteur Température");
-
+homekit_characteristic_t cha_name = HOMEKIT_CHARACTERISTIC_(NAME, "Température");
 
 // (optional) format: bool; HAP section 9.96
 homekit_characteristic_t cha_status_active = HOMEKIT_CHARACTERISTIC_(STATUS_ACTIVE, true);
@@ -42,10 +41,12 @@ homekit_characteristic_t cha_status_fault = HOMEKIT_CHARACTERISTIC_(STATUS_FAULT
 // example for humidity
 homekit_characteristic_t cha_humidity  = HOMEKIT_CHARACTERISTIC_(CURRENT_RELATIVE_HUMIDITY, 0);
 
+
+
 homekit_accessory_t *accessories[] = {
     HOMEKIT_ACCESSORY(.id=1, .category=homekit_accessory_category_sensor, .services=(homekit_service_t*[]) {
         HOMEKIT_SERVICE(ACCESSORY_INFORMATION, .characteristics=(homekit_characteristic_t*[]) {
-            HOMEKIT_CHARACTERISTIC(NAME, "Capteur Température"),
+            HOMEKIT_CHARACTERISTIC(NAME, "Hygrometre"),
             HOMEKIT_CHARACTERISTIC(MANUFACTURER, "ICM Jung"),
             HOMEKIT_CHARACTERISTIC(SERIAL_NUMBER, "000002"),
             HOMEKIT_CHARACTERISTIC(MODEL, "NodeMcu v3"),
@@ -58,14 +59,14 @@ homekit_accessory_t *accessories[] = {
 						&cha_name,//optional
 			      &cha_status_active,//optional
 						&cha_status_fault,//optional
-			//&cha_status_tampered,//optional
-			//&cha_status_low_battery,//optional
+    			//&cha_status_tampered,//optional
+    			//&cha_status_low_battery,//optional
             NULL
         }),
 		// Add this HOMEKIT_SERVICE if you has a HUMIDITY_SENSOR together
 
         HOMEKIT_SERVICE(HUMIDITY_SENSOR, .characteristics=(homekit_characteristic_t*[]) {
-            HOMEKIT_CHARACTERISTIC(NAME, "Capteur Humidité"),
+            HOMEKIT_CHARACTERISTIC(NAME, "Humidité"),
             &cha_humidity,
             NULL
         }),

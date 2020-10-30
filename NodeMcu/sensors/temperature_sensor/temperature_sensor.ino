@@ -6,7 +6,7 @@
  *
  * Note:
  *
- * Apple's HAP doc 
+ * Apple's HAP doc
  * https://developer.apple.com/support/homekit-accessory-protocol/
  *
  */
@@ -75,14 +75,14 @@ void my_homekit_loop() {
 }
 
 void my_homekit_report() {
-  
+
   temperature = dht.getTemperature();
   humidity = dht.getHumidity();
 
 	cha_current_temperature.value.float_value = temperature;
 	homekit_characteristic_notify(&cha_current_temperature, cha_current_temperature.value);
 
-	cha_current_temperature.value.float_value = humidity;
+	cha_humidity.value.float_value = humidity;
 	homekit_characteristic_notify(&cha_humidity, cha_humidity.value);
 
   cha_status_active.value.bool_value = isActive;
@@ -93,7 +93,7 @@ void my_homekit_report() {
 
 	LOG_D("Current temperature: %.1f", temperature);
 	LOG_D("Current humidity: %.0f", humidity);
-	LOG_D("Sensor status: %b, Exit Code: %u", isActive, fault);
+	LOG_D("Sensor status: %u, Exit Code: %u", isActive, fault);
 
 }
 
