@@ -44,17 +44,15 @@ static uint32_t next_heap_millis = 0;
 
 
 void cha_switch_on_setter(const homekit_value_t value) {
-  bool on = value.bool_value;
-  cha_switch_on.value.bool_value = on;  //sync the value
-  LOG_D("Switch: %s", on ? "ON" : "OFF");
-  digitalWrite(PIN_SWITCH, on ? LOW : HIGH);
+  bool isOn = value.bool_value;
+  cha_switch_on.value.bool_value = isOn;  //sync the value
+  LOG_D("Switch: %s", isOn ? "ON" : "OFF");
+  digitalWrite(PIN_SWITCH, isOn ? HIGH : LOW);
 }
-
-
 
 void my_homekit_setup() {
 	pinMode(PIN_SWITCH, OUTPUT);
-	digitalWrite(PIN_SWITCH, HIGH);
+	digitalWrite(PIN_SWITCH, LOW);
 
 	//Add the .setter function to get the switch-event sent from iOS Home APP.
 	//The .setter should be added before arduino_homekit_setup.
@@ -64,10 +62,6 @@ void my_homekit_setup() {
 	cha_switch_on.setter = cha_switch_on_setter;
 	arduino_homekit_setup(&config);
 
-	//report the switch value to HomeKit if it is changed (e.g. by a physical button)
-//	bool switch_is_on = true/false;
-//	cha_switch_on.value.bool_value = switch_is_on;
-//	homekit_characteristic_notify(&cha_switch_on, cha_switch_on.value);
 }
 
 void my_homekit_loop() {
